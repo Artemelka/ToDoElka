@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from "react-router-dom";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createHistory from "history/createBrowserHistory";
 
-import App from './App';
+import { App } from './App';
 import reducers from './reducers';
 
 import './index.css';
@@ -20,7 +21,9 @@ const store = createStore(reducers, composeWithDevTools(applyMiddleware(middlewa
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+        <Router>
+            <App />
+        </Router>
     </ConnectedRouter>
   </Provider>,
   ROOT);

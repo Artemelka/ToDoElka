@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
+import React, { Component, Fragment } from 'react';
 
-import { LoginPage } from './pages/login';
+import { Header } from './elements/header';
+import { Layout } from './elements/layout';
 
-import './App.css';
-
-class App extends Component {
+export class App extends Component {
   render() {
     return (
-      <div className="ToDo">
-        <Route exact path="/" component={LoginPage} />
-      </div>
+      <Fragment>
+        <Header />
+        <Layout />
+      </Fragment>
     );
   }
 }
 
-export default App;
