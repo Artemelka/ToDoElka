@@ -3,11 +3,10 @@ import { routerReducer } from "react-router-redux";
 
 const initialState = {
   users: {
-    artemelka: {
-      category: {},
-      tasks: {},
-    }
-  }
+    artemelka: {}
+  },
+  category: {},
+  tasks: {}
 };
 
 const taskReducer = (state = initialState.users, action) => {
