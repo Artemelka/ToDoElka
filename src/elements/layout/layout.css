@@ -1,0 +1,33 @@
+.Todo-content {
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+
+}
+.Todo-content__inner {
+    padding-left: 0;
+    height: 100%;
+    transition: padding-left 0.3s;
+}
+.Todo-content__inner--open {
+    padding-left: 415px;
+}
+.Todo-content__aside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 400px;
+    overflow: auto;
+    padding: 60px 0;
+}
+.Todo-content__main {
+    padding: 60px 0;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+}
+.Todo-content__top {
+    padding: 10px 15px;
+}
+

@@ -1,8 +1,13 @@
 .Todo-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
     padding: 5px 30px;
     background-color: #303f9f;
     color: aliceblue;
     font-size: 0;
+    z-index: 2;
 }
 .Todo-header__column {
     display: inline-block;
