@@ -28,6 +28,8 @@ class CategoryItemContainerComponent extends Component {
 
     handleEditCategory = () => {
         this.setState({editCategory: true, active: true});
+        console.log(this.inputRef);
+        // this.inputRef.focus();
     };
 
     handleCreateCategory = () => {
@@ -62,7 +64,12 @@ class CategoryItemContainerComponent extends Component {
         this.thisTask = ref;
     };
 
+    handleInputRef = (refs) => {
+        this.inputRef = refs.props;
+    };
+
     thisTask = React.createRef();
+    inputRef = null;
 
     render() {
         const {categoryName, categoryList, categoryId, match, history} = this.props;
@@ -93,6 +100,7 @@ class CategoryItemContainerComponent extends Component {
                     onNameClick={this.handleNameClick}
                     handleInputBlur={this.handleInputBlur}
                     withRef={this.handleRef}
+                    withInputRef={this.handleInputRef}
                 />
                 {hasChild && hasShowChild &&
                 <CategoryList

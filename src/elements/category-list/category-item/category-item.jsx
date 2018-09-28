@@ -6,6 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Menu from "@material-ui/core/Menu/Menu";
+import Input from '@material-ui/core/Input';
+import { withStyles } from '@material-ui/core/styles';
 
 const anchorOrigin = {
     vertical: 'top',
@@ -15,8 +17,19 @@ const transformOrigin = {
     vertical: 'top',
     horizontal: 'right',
 };
+const styles = () => ({
+    button: {
+        padding: 8
+    },
+    menuItem: {
+        padding: '10px 8px'
+    },
+    icon: {
+        fontSize: 18
+    }
+});
 
-export class CategoryItem extends Component {
+export class CategoryItemComponent extends Component {
     static defaultProps = {
         categoryName: 'TestCategory'
     };
@@ -30,30 +43,32 @@ export class CategoryItem extends Component {
     handleClose = () => this.setState({ anchorEl: null });
 
     renderEdit = () => {
-        const { onConfirm, handleInputBlur } = this.props;
+        const { onConfirm, handleInputBlur, classes  } = this.props;
 
         return(
             <Fragment>
                 <IconButton
                     aria-label="Confirm"
                     color="primary"
+                    className={classes.button}
                     onClick={onConfirm}
                 >
-                    <Icon fontSize="small" >done</Icon>
+                    <Icon fontSize="small" className={classes.icon} >done</Icon>
                 </IconButton>
                 <IconButton
                     aria-label="clear"
                     color="primary"
+                    className={classes.button}
                     onClick={handleInputBlur}
                 >
-                    <Icon fontSize="small" >clear</Icon>
+                    <Icon fontSize="small" className={classes.icon}>clear</Icon>
                 </IconButton>
             </Fragment>
         );
     };
 
     renderMore = () => {
-        const { onEdit, onCreate, onRemove, hasChild } = this.props;
+        const { onEdit, onCreate, onRemove, hasChild, classes  } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -62,9 +77,10 @@ export class CategoryItem extends Component {
               <IconButton
                   aria-label="More"
                   color="primary"
+                  className={classes.button}
                   onClick={this.handleMenu}
               >
-                  <Icon fontSize="small" >more_vert</Icon>
+                  <Icon fontSize="small" className={classes.icon} >more_vert</Icon>
               </IconButton>
               <Menu
                   id="menu-appbar"
@@ -74,28 +90,34 @@ export class CategoryItem extends Component {
                   open={open}
                   onClose={this.handleClose}
               >
-                  <MenuItem onClick={this.handleClose}>
+                  <MenuItem
+                      className={classes.menuItem}
+                      onClick={this.handleClose}
+                  >
                       <IconButton
                           aria-label="Edit"
                           color="primary"
+                          className={classes.button}
                           onClick={onEdit}
                       >
-                          <Icon fontSize="small" >create</Icon>
+                          <Icon fontSize="small" className={classes.icon} >create</Icon>
                       </IconButton>
                       <IconButton
                           aria-label="Create"
                           color="primary"
+                          className={classes.button}
                           onClick={onCreate}
                       >
-                          <AddIcon fontSize="small" />
+                          <AddIcon fontSize="small" className={classes.icon} />
                       </IconButton>
                       <IconButton
                           aria-label="Delete"
                           color="primary"
+                          className={classes.button}
                           onClick={onRemove}
                           disabled={!hasChild}
                       >
-                          <DeleteIcon fontSize="small" />
+                          <DeleteIcon fontSize="small" className={classes.icon} />
                       </IconButton>
                   </MenuItem>
               </Menu>
@@ -107,6 +129,7 @@ export class CategoryItem extends Component {
         const {
             categoryName,
             styleClasses,
+            classes,
             onShowChild,
             hasShowChild,
             hasChild,
@@ -114,7 +137,8 @@ export class CategoryItem extends Component {
             onClick,
             onNameClick,
             handleInputBlur,
-            withRef
+            withRef,
+            withInputRef
         } = this.props;
         const iconType = hasShowChild ? 'arrow_drop_up' : 'arrow_drop_down';
         const ButtonVariant = hasEditCategory ? this.renderEdit : this.renderMore;
@@ -131,6 +155,7 @@ export class CategoryItem extends Component {
                         <IconButton
                             aria-label="Add"
                             color="primary"
+                            className={classes.button}
                             onClick={onShowChild}
                         >
                             <Icon fontSize="small" >{ iconType }</Icon>
@@ -141,7 +166,16 @@ export class CategoryItem extends Component {
                             {/*? <CategoryInput categoryName={categoryName} onBlur={handleInputBlur}/>*/}
                             {/*: <p className="Category-item__name" onClick={onNameClick}>{categoryName}</p>*/}
                         {/*}*/}
-                        <p className="Category-item__name" onClick={onNameClick}>{categoryName}</p>
+
+                        <Input
+                            value={categoryName}
+                            disabled={!hasEditCategory}
+                            inputProps={{
+                                'aria-label': 'Description',
+                            }}
+                            onBlur={handleInputBlur}
+                            ref={withInputRef}
+                        />
                     </div>
                 </div>
                 <div className="Category-item__right">
@@ -151,3 +185,5 @@ export class CategoryItem extends Component {
         );
     }
 }
+
+export const CategoryItem = withStyles(styles)(CategoryItemComponent);
