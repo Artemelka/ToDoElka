@@ -40,7 +40,17 @@ export class CategoryItemComponent extends Component {
 
     handleMenu = event => this.setState({ anchorEl: event.currentTarget });
 
-    handleClose = () => this.setState({ anchorEl: null });
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
+    handleFocus = () => {
+        const {hasEditCategory} = this.props;
+
+        if (!hasEditCategory) {
+
+        }
+    };
 
     renderEdit = () => {
         const { onConfirm, handleInputBlur, classes  } = this.props;
@@ -115,7 +125,7 @@ export class CategoryItemComponent extends Component {
                           color="primary"
                           className={classes.button}
                           onClick={onRemove}
-                          disabled={!hasChild}
+                          disabled={hasChild}
                       >
                           <DeleteIcon fontSize="small" className={classes.icon} />
                       </IconButton>
@@ -135,7 +145,6 @@ export class CategoryItemComponent extends Component {
             hasChild,
             hasEditCategory,
             onClick,
-            onNameClick,
             handleInputBlur,
             withRef,
             withInputRef
@@ -162,20 +171,16 @@ export class CategoryItemComponent extends Component {
                         </IconButton>
                     }
                     <div className="Category-item__name-box">
-                        {/*{hasEditCategory*/}
-                            {/*? <CategoryInput categoryName={categoryName} onBlur={handleInputBlur}/>*/}
-                            {/*: <p className="Category-item__name" onClick={onNameClick}>{categoryName}</p>*/}
-                        {/*}*/}
-
                         <Input
-                            value={categoryName}
-                            disabled={!hasEditCategory}
-                            inputProps={{
-                                'aria-label': 'Description',
-                            }}
-                            onBlur={handleInputBlur}
-                            ref={withInputRef}
-                        />
+                        defaultValue={categoryName}
+                        inputProps={{
+                            'aria-label': 'Description',
+                        }}
+                        onBlur={handleInputBlur}
+                        onFocus={this.handleFocus}
+                        readOnly={!hasEditCategory}
+                        inputRef={withInputRef}
+                    />
                     </div>
                 </div>
                 <div className="Category-item__right">

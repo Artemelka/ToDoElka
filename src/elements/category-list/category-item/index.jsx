@@ -28,7 +28,7 @@ class CategoryItemContainerComponent extends Component {
 
     handleEditCategory = () => {
         this.setState({editCategory: true, active: true});
-        console.log(this.inputRef);
+        setTimeout(() => this.inputRef.focus(), 0);
         // this.inputRef.focus();
     };
 
@@ -53,22 +53,17 @@ class CategoryItemContainerComponent extends Component {
         }
     };
 
-    handleNameClick = () => {
-        this.setState({active: true});
-        this.props.history.push(`/category/${this.props.categoryId}`);
-    };
-
     handleInputBlur = () => this.setState({editCategory: false});
 
     handleRef = (ref) => {
         this.thisTask = ref;
     };
 
-    handleInputRef = (refs) => {
-        this.inputRef = refs.props;
+    handleInputRef = (ref) => {
+        this.inputRef = ref;
     };
 
-    thisTask = React.createRef();
+    thisTask = null;
     inputRef = null;
 
     render() {
@@ -97,7 +92,6 @@ class CategoryItemContainerComponent extends Component {
                     onConfirm={this.handleConfirm}
                     onRemove={this.handleRemoveCategory}
                     onClick={this.handleClick}
-                    onNameClick={this.handleNameClick}
                     handleInputBlur={this.handleInputBlur}
                     withRef={this.handleRef}
                     withInputRef={this.handleInputRef}

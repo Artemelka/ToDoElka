@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
 import { fakeLogin } from "../../auth";
 import { LoginButton, MenuButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import { Home, Login, CategoryPage } from '../../pages';
 import { PrivateRoute } from '../../elements/private-router';
