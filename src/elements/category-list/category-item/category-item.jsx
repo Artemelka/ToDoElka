@@ -1,47 +1,10 @@
-import React, { Component, Fragment } from 'react';
-
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import Menu from "@material-ui/core/Menu/Menu";
+import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
-import { withStyles } from '@material-ui/core/styles';
+import { ButtonIcon as IconButton, MoreButton, EditButtonGroup } from '../../buttons';
 
-const anchorOrigin = {
-    vertical: 'top',
-    horizontal: 'right',
-};
-const transformOrigin = {
-    vertical: 'top',
-    horizontal: 'right',
-};
-const styles = () => ({
-    button: {
-        padding: 8
-    },
-    menuItem: {
-        padding: '10px 8px'
-    },
-    icon: {
-        fontSize: 18
-    }
-});
-
-export class CategoryItemComponent extends Component {
+export class CategoryItem extends Component {
     static defaultProps = {
         categoryName: 'TestCategory'
-    };
-
-    state = {
-        anchorEl: null
-    };
-
-    handleMenu = event => this.setState({ anchorEl: event.currentTarget });
-
-    handleClose = () => {
-        this.setState({ anchorEl: null });
     };
 
     handleFocus = () => {
@@ -52,105 +15,39 @@ export class CategoryItemComponent extends Component {
         }
     };
 
-    renderEdit = () => {
-        const { onConfirm, handleInputBlur, classes  } = this.props;
+    renderButtons = () => {
+        const {
+            onConfirm, handleInputBlur, onEdit, onCreate,
+            onRemove, hasChild, hasEditCategory
+        } = this.props;
+        const menuItems = [
+            {titel: 'create', onClick: onEdit, disabled: false},
+            {titel: 'add', onClick: onCreate, disabled: false},
+            {titel: 'delete', onClick: onRemove, disabled: hasChild}
+        ];
 
-        return(
-            <Fragment>
-                <IconButton
-                    aria-label="Confirm"
-                    color="primary"
-                    className={classes.button}
-                    onClick={onConfirm}
-                >
-                    <Icon fontSize="small" className={classes.icon} >done</Icon>
-                </IconButton>
-                <IconButton
-                    aria-label="clear"
-                    color="primary"
-                    className={classes.button}
-                    onClick={handleInputBlur}
-                >
-                    <Icon fontSize="small" className={classes.icon}>clear</Icon>
-                </IconButton>
-            </Fragment>
-        );
-    };
-
-    renderMore = () => {
-        const { onEdit, onCreate, onRemove, hasChild, classes  } = this.props;
-        const { anchorEl } = this.state;
-        const open = Boolean(anchorEl);
-
-      return(
-          <Fragment>
-              <IconButton
-                  aria-label="More"
-                  color="primary"
-                  className={classes.button}
-                  onClick={this.handleMenu}
-              >
-                  <Icon fontSize="small" className={classes.icon} >more_vert</Icon>
-              </IconButton>
-              <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={anchorOrigin}
-                  transformOrigin={transformOrigin}
-                  open={open}
-                  onClose={this.handleClose}
-              >
-                  <MenuItem
-                      className={classes.menuItem}
-                      onClick={this.handleClose}
-                  >
-                      <IconButton
-                          aria-label="Edit"
-                          color="primary"
-                          className={classes.button}
-                          onClick={onEdit}
-                      >
-                          <Icon fontSize="small" className={classes.icon} >create</Icon>
-                      </IconButton>
-                      <IconButton
-                          aria-label="Create"
-                          color="primary"
-                          className={classes.button}
-                          onClick={onCreate}
-                      >
-                          <AddIcon fontSize="small" className={classes.icon} />
-                      </IconButton>
-                      <IconButton
-                          aria-label="Delete"
-                          color="primary"
-                          className={classes.button}
-                          onClick={onRemove}
-                          disabled={hasChild}
-                      >
-                          <DeleteIcon fontSize="small" className={classes.icon} />
-                      </IconButton>
-                  </MenuItem>
-              </Menu>
-          </Fragment>
-      );
+        return hasEditCategory
+            ?
+            <EditButtonGroup
+                onConfirm={onConfirm}
+                handleInputBlur={handleInputBlur}
+            />
+            :
+            <MoreButton
+                onEdit={onEdit}
+                onCreate={onCreate}
+                onRemove={onRemove}
+                hasChild={hasChild}
+                menuItems={menuItems}
+            />
     };
 
     render() {
         const {
-            categoryName,
-            styleClasses,
-            classes,
-            onShowChild,
-            hasShowChild,
-            hasChild,
-            hasEditCategory,
-            onClick,
-            handleInputBlur,
-            withRef,
-            withInputRef
+            categoryName, handleInputBlur, hasShowChild, hasChild, hasEditCategory,
+            onClick, onShowChild, styleClasses, withRef, withInputRef
         } = this.props;
         const iconType = hasShowChild ? 'arrow_drop_up' : 'arrow_drop_down';
-        const ButtonVariant = hasEditCategory ? this.renderEdit : this.renderMore;
 
         return (
             <div
@@ -162,33 +59,27 @@ export class CategoryItemComponent extends Component {
                 <div className="Category-item__left">
                     { hasChild &&
                         <IconButton
-                            aria-label="Add"
-                            color="primary"
-                            className={classes.button}
                             onClick={onShowChild}
-                        >
-                            <Icon fontSize="small" >{ iconType }</Icon>
-                        </IconButton>
+                            titel={iconType}
+                        />
                     }
                     <div className="Category-item__name-box">
                         <Input
-                        defaultValue={categoryName}
-                        inputProps={{
-                            'aria-label': 'Description',
-                        }}
-                        onBlur={handleInputBlur}
-                        onFocus={this.handleFocus}
-                        readOnly={!hasEditCategory}
-                        inputRef={withInputRef}
-                    />
+                            defaultValue={categoryName}
+                            inputProps={{
+                                'aria-label': 'Description',
+                            }}
+                            onBlur={handleInputBlur}
+                            onFocus={this.handleFocus}
+                            readOnly={!hasEditCategory}
+                            inputRef={withInputRef}
+                        />
                     </div>
                 </div>
                 <div className="Category-item__right">
-                    <ButtonVariant />
+                    {this.renderButtons()}
                 </div>
             </div>
         );
     }
 }
-
-export const CategoryItem = withStyles(styles)(CategoryItemComponent);

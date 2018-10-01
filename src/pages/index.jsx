@@ -1,3 +1,3 @@
-export { Home } from './home';
-export { Login } from './login';
+export { HomePage } from './home';
+export { LoginPage } from './login';
 export { CategoryPage } from './category';

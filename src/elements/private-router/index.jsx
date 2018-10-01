@@ -1,11 +1,1 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { fakeLogin } from "../../auth";
-
-export const PrivateRoute = ({component: Component, ...rest}) => {
-    const resultComponent = (props) => fakeLogin.isLogin
-        ? <Component {...props} />
-        : <Redirect  to={{pathname: "/login", state: {from: props.location}}} />;
-
-    return <Route {...rest} render={resultComponent} />
-};
+export { PrivateRoute } from './private-router';
