@@ -4,13 +4,14 @@ import { routerReducer } from "react-router-redux";
 import { categoryReducer } from '../elements/category-list/category-reducer';
 
 const initialState = {
-  users: {
-    artemelka: {}
-  },
-  tasks: {},
-  services: {
-    sidebarOpen: true
-  }
+    users: {
+        artemelka: {}
+    },
+    tasks: {},
+    services: {
+        sidebarOpen: true,
+        isLogin: false
+    }
 };
 
 const servicesReducer = (state = initialState.services, action) => {

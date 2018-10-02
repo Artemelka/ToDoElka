@@ -15,12 +15,12 @@ class CategoryListComponent extends Component {
         const classStyle = classNames('Category-list', {
             'Category-list--inner': catId
         });
-
+console.log('CategoryList', this.props);
         return (
             <ul className={classStyle}>
                 {Object.values(allCategory).map((category, index) =>
-                    (category.parent === catId)
-                        ? <CategoryItemContainer
+                    (category.parent === catId) &&
+                        <CategoryItemContainer
                             categoryList={allCategory}
                             categoryName={category.name}
                             categoryId={category.id}
@@ -28,7 +28,6 @@ class CategoryListComponent extends Component {
                             key={index}
                             {...rest}
                         />
-                        : null
                 )}
             </ul>
         );

@@ -22,19 +22,24 @@ class CategoryItemContainerComponent extends Component {
 
     handleRemoveCategory = () =>  {
         this.props.removeCategory(this.props.categoryId);
-        // this.props.history.push(`/category`);
+        this.props.history.push(`/category`);
         console.log('remove');
     };
 
     handleEditCategory = () => {
         this.setState({editCategory: true, active: true});
-        setTimeout(() => this.inputRef.focus(), 0);
+        setTimeout(() => {
+
+            this.props.history.push(`/category/${this.props.categoryId}`);
+            this.inputRef.focus();
+        }, 0);
         // this.inputRef.focus();
+        // this.props.history.push(`/category/${this.props.categoryId}`);
     };
 
     handleCreateCategory = () => {
         this.setState({active: true});
-        // this.props.history.push(`/category/${this.props.categoryId}/new`);
+        this.props.history.push(`/category/new/${this.props.categoryId}`);
     };
 
     handleShowChild = () => {
@@ -68,10 +73,11 @@ class CategoryItemContainerComponent extends Component {
 
     render() {
         const {categoryName, categoryList, categoryId, match, history} = this.props;
+        console.log('CategoryItemContainer', match);
         const childCategory = this.getChildСat(categoryList, categoryId);
         const hasChild = !!childCategory.length;
         const hasShowChild = this.state.showChild;
-        const activeCat = (categoryId === match.params.catId);
+        const activeCat = (categoryId === match.params.catId) || this.state.editCategory;
         const styleClasses = classNames('Category-item', {
             'Category-item--with-child': hasChild,
             'Category-item--active': activeCat
@@ -107,7 +113,8 @@ class CategoryItemContainerComponent extends Component {
     }
 }
 
-export const CategoryItemContainer = connect(null,
+export const CategoryItemContainer = connect(
+    store => ({...store}),
     dispatch => ({
         removeCategory: catId => dispatch({type: actionType.REMOVE_CATEGORY, payload: catId}),
         setActiveCategory: catId => dispatch({type: actionType.ACTIVE_CATEGORY, payload: catId})
