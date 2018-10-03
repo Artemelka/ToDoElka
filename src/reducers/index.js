@@ -7,18 +7,43 @@ const initialState = {
     users: {
         artemelka: {}
     },
-    tasks: {},
+    tasks: {
+        Firsttask1: {
+            id: "Firsttask1",
+            type: "task",
+            parent: "categoryFirst1",
+            name: "First task",
+            description: "Test task in db",
+            checked: false
+        },
+        Firsttask2: {
+            id: "First task2",
+            type: "task",
+            parent: "categoryFirst1",
+            name: "First task",
+            description: "Test task in db",
+            checked: false
+        },
+        taskOne3: {
+            "id": "taskOne3",
+            "type": "task",
+            "parent": "categorySecond2",
+            "name": "Second task",
+            "description": "Test task in db",
+            "checked": true
+        },
+        "taskOne4": {
+            "id": "taskOne4",
+            "type": "task",
+            "parent": "Subcategoryone4",
+            "name": "Second task",
+            "description": "Test task in db",
+            "checked": true
+        }
+    },
     services: {
         sidebarOpen: true,
         isLogin: false
-    }
-};
-
-const servicesReducer = (state = initialState.services, action) => {
-    switch (action.type) {
-
-        default:
-            return state;
     }
 };
 
@@ -28,6 +53,14 @@ const taskReducer = (state = initialState.tasks, action) => {
     default:
       return state;
   }
+};
+
+const servicesReducer = (state = initialState.services, action) => {
+    switch (action.type) {
+
+        default:
+            return state;
+    }
 };
 
 const usersReducer = (state = initialState.users, action) => {
@@ -41,7 +74,7 @@ const usersReducer = (state = initialState.users, action) => {
 export default combineReducers({
   router: routerReducer,
   allCategory: categoryReducer,
-  allTask: taskReducer,
+  allTasks: taskReducer,
   users: usersReducer,
   services: servicesReducer
 });

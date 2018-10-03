@@ -20,3 +20,9 @@
 .Grid__column--5 {
     width: 20%;
 }
+.Grid__column--70 {
+    width: 70%;
+}
+.Grid__column--30 {
+    width: 30%;
+}

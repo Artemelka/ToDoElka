@@ -6,14 +6,11 @@ import classNames from 'classnames';
 import { CategoryList } from '../../elements/category-list';
 import { InputWithButton } from '../../elements/input-with-button';
 import { ProgressBar } from '../../elements/progress';
+import { TasksPage } from '../tasks-page';
 import { actionType} from '../../actions/action-type';
 
 const SelectCategory = (props) => {
    return <h1>select</h1>;
-};
-
-const TasksPage = (props) => {
-    return <h1>new</h1>;
 };
 
 class CategoryPageComponent extends Component {
@@ -29,16 +26,18 @@ class CategoryPageComponent extends Component {
                     <div className="Todo-content__top">
                         <InputWithButton onClick={createCategory}/>
                     </div>
-                    <CategoryList {...this.props}/>
+                    <div className="Todo-content__middle">
+                        <CategoryList {...this.props}/>
+                    </div>
                 </aside>
                 <main className="Todo-content__main">
                     <div className="Todo-content__top">
-                        <ProgressBar />
+                        {/*<ProgressBar />*/}
                     </div>
                     <div className="Todo-content__middle">
                         <Route exact path="/category/" component={SelectCategory}/>
-                        <Route exact path="/category/:catId" component={()=><h1>tasks</h1>}/>
-                        <Route exact path="/category/new/:catId" component={TasksPage}/>
+                        <Route exact path="/category/:catId" component={TasksPage}/>
+                        <Route exact path="/category/new/:catId" component={()=><h1>tasks</h1>} />
                     </div>
                 </main>
             </div>
