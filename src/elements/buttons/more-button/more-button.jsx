@@ -27,14 +27,11 @@ export class MoreButtonComponent extends Component {
 
     handleMenu = event => this.setState({ anchorEl: event.currentTarget });
 
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-    };
+    handleClose = () => this.setState({ anchorEl: null });
 
     render() {
         const { classes, menuItems } = this.props;
         const { anchorEl } = this.state;
-        const open = Boolean(anchorEl);
 
         return (
             <Fragment>
@@ -43,11 +40,11 @@ export class MoreButtonComponent extends Component {
                     titel={'more_vert'}
                 />
                 <Menu
-                    id="menu-appbar"
+                    id="menu-button-more"
                     anchorEl={anchorEl}
                     anchorOrigin={anchorOrigin}
                     transformOrigin={transformOrigin}
-                    open={open}
+                    open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                 >
                     <MenuItem

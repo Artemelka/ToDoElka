@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from '@material-ui/core/Input';
+import InputBase from '@material-ui/core/InputBase';
 import { ButtonIcon as IconButton, MoreButton, EditButtonGroup } from '../../buttons';
 
 export class CategoryItem extends Component {
@@ -7,47 +7,18 @@ export class CategoryItem extends Component {
         categoryName: 'TestCategory'
     };
 
-    handleFocus = () => {
-        const {hasEditCategory} = this.props;
-
-        if (!hasEditCategory) {
-
-        }
-    };
-
-    renderButtons = () => {
+    render() {
         const {
-            onConfirm, handleInputBlur, onEdit, onCreate,
-            onRemove, hasChild, hasEditCategory
+            categoryName, handleInputBlur, hasShowChild, hasChild, hasEditCategory,
+            onConfirm, onAbortEdit, onEdit, onCreate, onRemove, onClick, onShowChild,
+            styleClasses, withRef, withInputRef
         } = this.props;
+        const iconType = hasShowChild ? 'arrow_drop_up' : 'arrow_drop_down';
         const menuItems = [
             {titel: 'create', onClick: onEdit, disabled: false},
             {titel: 'add', onClick: onCreate, disabled: false},
             {titel: 'delete', onClick: onRemove, disabled: hasChild}
         ];
-
-        return hasEditCategory
-            ?
-            <EditButtonGroup
-                onConfirm={onConfirm}
-                handleInputBlur={handleInputBlur}
-            />
-            :
-            <MoreButton
-                onEdit={onEdit}
-                onCreate={onCreate}
-                onRemove={onRemove}
-                hasChild={hasChild}
-                menuItems={menuItems}
-            />
-    };
-
-    render() {
-        const {
-            categoryName, handleInputBlur, hasShowChild, hasChild, hasEditCategory,
-            onClick, onShowChild, styleClasses, withRef, withInputRef
-        } = this.props;
-        const iconType = hasShowChild ? 'arrow_drop_up' : 'arrow_drop_down';
 
         return (
             <div
@@ -57,18 +28,13 @@ export class CategoryItem extends Component {
                 tabIndex={0}
             >
                 <div className="Category-item__left">
-                    { hasChild &&
-                        <IconButton
-                            onClick={onShowChild}
-                            titel={iconType}
-                        />
+                    {
+                        hasChild && <IconButton onClick={onShowChild} titel={iconType} />
                     }
                     <div className="Category-item__name-box">
-                        <Input
+                        <InputBase
                             defaultValue={categoryName}
-                            inputProps={{
-                                'aria-label': 'Description',
-                            }}
+                            inputProps={{'aria-label': 'Description'}}
                             onBlur={handleInputBlur}
                             onFocus={this.handleFocus}
                             readOnly={!hasEditCategory}
@@ -77,7 +43,11 @@ export class CategoryItem extends Component {
                     </div>
                 </div>
                 <div className="Category-item__right">
-                    {this.renderButtons()}
+                    {
+                        hasEditCategory
+                            ? <EditButtonGroup onConfirm={onConfirm} onAbortEdit={onAbortEdit} />
+                            : <MoreButton menuItems={menuItems} />
+                    }
                 </div>
             </div>
         );

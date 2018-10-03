@@ -10,14 +10,14 @@
     transition: padding-left 0.3s;
 }
 .Todo-content__inner--open {
-    padding-left: 415px;
+    padding-left: 315px;
 }
 .Todo-content__aside {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 400px;
+    width: 300px;
     overflow: auto;
     padding: 60px 0;
 }

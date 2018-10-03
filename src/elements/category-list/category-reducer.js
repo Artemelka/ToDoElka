@@ -1,3 +1,11 @@
+import { actionType } from '../../actions/action-type';
+import {
+    removeCategory,
+    createNewCategory,
+    setActiveCategory,
+    editCategoryName
+} from './category-action';
+
 const initialState = {
     categoryFirst1: {
         id: "categoryFirst1",
@@ -15,7 +23,7 @@ const initialState = {
         parent: "",
         name: "category Second",
         description: "Test category in db",
-        active: true
+        active: false
     },
     categoryThird3: {
         id: "categoryThird3",
@@ -57,7 +65,14 @@ const initialState = {
 
 export const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-
+        case actionType.REMOVE_CATEGORY:
+            return removeCategory(state, action.payload);
+        case actionType.CREATE_CATEGORY:
+            return createNewCategory(state, action.payload);
+        case actionType.ACTIVE_CATEGORY:
+            return setActiveCategory(state, action.payload);
+        case actionType.EDIT_CATEGORY:
+            return editCategoryName(state, action.payload);
         default:
             return state;
     }

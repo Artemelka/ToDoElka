@@ -4,7 +4,7 @@ import { ButtonIcon as IconButton } from '../../buttons';
 
 export class EditButtonGroup extends Component {
     render () {
-        const { onConfirm, handleInputBlur } = this.props;
+        const { onConfirm, onAbortEdit } = this.props;
 
         return(
             <Fragment>
@@ -13,7 +13,7 @@ export class EditButtonGroup extends Component {
                     titel={'done'}
                 />
                 <IconButton
-                    onClick={handleInputBlur}
+                    onClick={onAbortEdit}
                     titel={'clear'}
                 />
             </Fragment>
