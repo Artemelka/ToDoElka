@@ -7,16 +7,12 @@ import { CategoryList } from '../../elements/category-list';
 import { InputWithButton } from '../../elements/input-with-button';
 import { ProgressBar } from '../../elements/progress';
 import { TasksPage } from '../tasks-page';
-import { TaskItem } from '../../elements/task';
+import { TaskItem, NewTask } from '../../elements/task';
 import { actionType} from '../../actions/action-type';
 
 const SelectCategory = (props) => {
     console.log('SelectCategory', props);
     return <h1>select category</h1>;
-};
-const NewTask = (props)=>{
-    console.log('NewTask', props);
-    return <h1>New tasks</h1>;
 };
 
 class CategoryPageComponent extends Component {
