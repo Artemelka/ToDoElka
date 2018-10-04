@@ -10,8 +10,16 @@ class ProgressBarContainerComponent extends React.Component {
 
     getResolveTasksQuantity = (allTasks, allCategory) => {
         const emptyCategoryValue = 0;
+        let activeCategoryTasks;
+
         const activeCategory = Object.values(allCategory).filter(category => category.active === true);
-        const activeCategoryTasks = Object.values(allTasks).filter(task => task.parent === activeCategory[0].id);
+
+        if (activeCategory.length) {
+            activeCategoryTasks = Object.values(allTasks).filter(task => task.parent === activeCategory[0].id);
+        } else {
+            activeCategoryTasks = Object.values(allTasks) || [{id: ''}];
+        }
+
         const quantityAllTask = activeCategoryTasks.length;
         const quantityResolveTask = activeCategoryTasks.filter(task => task.checked === true).length;
         const quantity = (100/quantityAllTask)*quantityResolveTask;
@@ -46,7 +54,7 @@ class ProgressBarContainerComponent extends React.Component {
 
 export const ProgressBar = connect(
     state => ({
-        allTasks: state.allTask,
+        allTasks: state.allTasks,
         allCategory: state.allCategory
     })
 )(ProgressBarContainerComponent);

@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Typography from '@material-ui/core/Typography';
+import { TaskList } from '../../elements/task';
 
 class TasksPageComponent extends Component {
+    state = {
+        expanded: null,
+    };
+
+    handleChange = (panel) => (event, expanded) => this.setState({ expanded: expanded ? panel : false});
+
     render() {
         const {allTasks, match, history} = this.props;
         const activeCategory = match.params.catId;
-        console.log(allTasks);
+        const categoryTasks = Object.values(allTasks).filter(task => task.parent === activeCategory);
+
         return (
             <div className="Tasks-page">
-                {Object.values(allTasks)
-                    .filter(task => task.parent === activeCategory)
-                    .map((task, i) =>
-                        <ExpansionPanel key={i}>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <Typography>{task.name}</Typography>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                <Typography>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                    sit amet blandit leo lobortis eget.
-                                </Typography>
-                            </ExpansionPanelDetails>
-                        </ExpansionPanel>
-                    )
-                }
+                {categoryTasks.map((task, index) =>
+                    <TaskList
+                        task={task}
+                        key={index}
+                        onChange={this.handleChange}
+                        expanded={this.state.expanded}
+                    />
+                )}
             </div>
         );
     }

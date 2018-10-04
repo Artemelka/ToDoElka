@@ -1,4 +1,5 @@
 export const removeCategory = (state, payload) => {
+    console.log('payload', payload);
     delete state[payload];
     return {...state};
 };
@@ -6,7 +7,6 @@ export const removeCategory = (state, payload) => {
 export const createNewCategory = (state, payload) => {
     const numCount = Object.values(state)[Object.values(state).length - 1].num + 1;
     const newId = `${payload.name.replace(' ', '')}${numCount}`;
-    console.log(newId);
     const newCat = {
         [newId]: {
             id: newId,
@@ -17,6 +17,7 @@ export const createNewCategory = (state, payload) => {
             active: false
         }
     };
+
     return {
         ...state,
         ...newCat

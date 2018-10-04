@@ -11,11 +11,11 @@ class CategoryListComponent extends Component {
     };
 
     render() {
-        const {allCategory, catId, ...rest} = this.props;
+        const { allCategory, catId, ...rest } = this.props;
         const classStyle = classNames('Category-list', {
             'Category-list--inner': catId
         });
-
+console.log('allCategory', allCategory);
         return (
             <ul className={classStyle}>
                 {Object.values(allCategory).map((category, index) =>

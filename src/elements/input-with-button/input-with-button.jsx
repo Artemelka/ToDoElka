@@ -23,7 +23,6 @@ export class InputWithButtonComponent extends Component {
     };
 
     handleClick = () => {
-        console.log(this.state.value);
         this.props.onClick({name: this.state.value});
         this.setState({value: ''});
     };

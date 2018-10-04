@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
 import { fakeLogin } from "../../auth";
-import { LoginButton, MenuButton } from '../../elements/buttons';
+import { LoginButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';
 import './header.css';
 

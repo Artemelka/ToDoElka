@@ -32,7 +32,7 @@ class CategoryPageComponent extends Component {
                 </aside>
                 <main className="Todo-content__main">
                     <div className="Todo-content__top">
-                        {/*<ProgressBar />*/}
+                        <ProgressBar />
                     </div>
                     <div className="Todo-content__middle">
                         <Route exact path="/category/" component={SelectCategory}/>
