@@ -15,7 +15,7 @@ class CategoryListComponent extends Component {
         const classStyle = classNames('Category-list', {
             'Category-list--inner': catId
         });
-console.log('allCategory', allCategory);
+
         return (
             <ul className={classStyle}>
                 {Object.values(allCategory).map((category, index) =>

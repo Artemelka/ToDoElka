@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 
@@ -7,8 +8,8 @@ import { LoginButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';
 import './header.css';
 
-export class Header extends Component {
-    handleClick = () => {};
+class HeaderComponent extends Component {
+    handleClick = () => this.props.history.push('/category/new-task/');
 
     render() {
         const { isLogin } = fakeLogin;
@@ -17,7 +18,6 @@ export class Header extends Component {
         return (
             <header className="Todo-header">
                 <div className="Todo-header__column Todo-header__column--3">
-                    {/*{isLogin && <MenuButton />}*/}
                     {isLogin &&
                         <Button
                             variant="contained"
@@ -47,3 +47,5 @@ export class Header extends Component {
         )
     }
 }
+
+export const Header = withRouter(HeaderComponent);

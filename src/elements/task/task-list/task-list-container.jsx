@@ -7,13 +7,15 @@ import './task-list.css';
 
 class TaskListComponentContainer extends Component {
     handleChangeStatusTask = (event) => {
-        const {changeStatus, task} = this.props;
+        const { changeStatus, task } = this.props;
 
         changeStatus({id: task.id, status: event.target.checked});
     };
 
     handleLearnMore = () => {
-        console.log('learn more');
+        const { history, match, task } = this.props;
+
+        history.push(`${match.url}/task/${task.id}`);
     };
 
     handleOpenTaskChange = (event, expanded) => {
@@ -47,9 +49,10 @@ class TaskListComponentContainer extends Component {
     }
 }
 
-export const TaskList = connect(null,
-dispatch => ({
-    changeStatus: taskId => dispatch({type: actionType.CHANGE_STATUS_TASK, payload: taskId}),
-    removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId})
-})
+export const TaskList = connect(
+    null,
+    dispatch => ({
+        changeStatus: taskId => dispatch({type: actionType.CHANGE_STATUS_TASK, payload: taskId}),
+        removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId})
+    })
 )(TaskListComponentContainer);

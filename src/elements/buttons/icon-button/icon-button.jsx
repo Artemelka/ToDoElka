@@ -7,9 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = () => ({
     button: {
         padding: 8
-    },
-    icon: {
-        fontSize: 18
     }
 });
 
@@ -31,7 +28,7 @@ export class ButtonIconComponent extends Component {
                 onClick={onClick}
                 disabled={disabled}
             >
-                <Icon fontSize={fontSize} className={classes.icon} >{titel}</Icon>
+                <Icon fontSize={fontSize} >{titel}</Icon>
             </IconButton>
         );
     }

@@ -23,6 +23,8 @@ class TasksPageComponent extends Component {
                         key={index}
                         onChange={this.handleChange}
                         expanded={this.state.expanded}
+                        match={match}
+                        history={history}
                     />
                 )}
             </div>

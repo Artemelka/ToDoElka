@@ -7,10 +7,16 @@ import { CategoryList } from '../../elements/category-list';
 import { InputWithButton } from '../../elements/input-with-button';
 import { ProgressBar } from '../../elements/progress';
 import { TasksPage } from '../tasks-page';
+import { TaskItem } from '../../elements/task';
 import { actionType} from '../../actions/action-type';
 
 const SelectCategory = (props) => {
-   return <h1>select</h1>;
+    console.log('SelectCategory', props);
+    return <h1>select category</h1>;
+};
+const NewTask = (props)=>{
+    console.log('NewTask', props);
+    return <h1>New tasks</h1>;
 };
 
 class CategoryPageComponent extends Component {
@@ -37,7 +43,9 @@ class CategoryPageComponent extends Component {
                     <div className="Todo-content__middle">
                         <Route exact path="/category/" component={SelectCategory}/>
                         <Route exact path="/category/:catId" component={TasksPage}/>
+                        <Route exact path="/category/:catId/task/:taskId" component={TaskItem}/>
                         <Route exact path="/category/new/:catId" component={()=><h1>tasks</h1>} />
+                        <Route exact path="/category/new-task/" component={NewTask} />
                     </div>
                 </main>
             </div>
