@@ -4,19 +4,18 @@ import { routerReducer } from "react-router-redux";
 import { categoryReducer } from '../elements/category-list/category-reducer';
 import { taskReducer } from '../elements/task';
 import { servicesReducer } from '../services/services-reducers';
+import { actionType } from '../actions/action-type';
 
-const initialState = {
-    user: {
-        login: 'Artemelka',
-        name: 'Artemelka',
-        password: '123456',
-        email: 'aemelianov85@gmail.com'
-    }
+const initialState = {};
+
+const addUserAction = (state, payload) => {
+    return {...payload};
 };
 
-const usersReducer = (state = initialState.user, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-
+      case actionType.ADD_USER:
+          return addUserAction(state, action.payload);
     default:
       return state;
   }

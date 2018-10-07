@@ -31,6 +31,7 @@ class UserAccountComponent extends Component {
     handleLogout = () => fakeLogin.logout((isLogin) => {
         this.props.history.push('/login');
         this.props.logout(isLogin);
+        this.handleClose();
     });
 
     render() {

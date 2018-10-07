@@ -1,15 +1,19 @@
 export const fakeLogin = {
     isLogin: false,
-    login: function(callback) {
+    login: function(callback, user) {
         this.isLogin = true;
-        setTimeout(() => {
-            callback(this.isLogin)
-        }, 100); // fake async
+        const value = JSON.stringify(user);
+        window.sessionStorage.setItem('user', value);
+        setTimeout(() => { callback(this.isLogin) }, 100); // fake async
     },
     logout: function(callback) {
         this.isLogin = false;
-        setTimeout(() => {
-            callback(this.isLogin)
-        }, 100);
+        window.sessionStorage.setItem('user', '');
+        window.sessionStorage.setItem('category', '');
+        window.sessionStorage.setItem('tasks', '');
+        setTimeout(() => { callback(this.isLogin) }, 100);
+    },
+    isAuth: function () {
+        return Boolean(this.isLogin || window.sessionStorage.getItem('user'));
     }
 };

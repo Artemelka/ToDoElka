@@ -3,16 +3,12 @@
     height: 100%;
     padding-top: 60px;
     position: relative;
-
 }
 .Todo-content-layout__inner {
-    padding-left: 0;
+    padding-left: 315px;
     position: relative;
     height: 100%;
     transition: padding-left 0.3s;
-}
-.Todo-content-layout__inner--open {
-    padding-left: 315px;
 }
 
 

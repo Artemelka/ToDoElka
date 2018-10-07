@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { NewTaskButton, LoginButton } from '../../elements/buttons';
+import { NewTaskButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';
 import './header.css';
 
@@ -23,11 +23,6 @@ class HeaderComponent extends Component {
                 <div className="Todo-header__column Todo-header__column--3 Todo-header__column--right">
                     <div className="Todo-header__user">
                         {isLogin && <UserAccount />}
-                        {/*{!isLogin &&*/}
-                        {/*<div className="Todo-header__button-wrapper">*/}
-                            {/*<LoginButton/>*/}
-                        {/*</div>*/}
-                        {/*}*/}
                     </div>
                 </div>
             </header>

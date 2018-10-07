@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 
 import { LoginPageComponent } from './login-page';
-import { fakeLogin } from '../../services';
 import { actionType } from '../../actions/action-type';
+import { fakeLogin } from '../../services';
+import { testDB } from '../../test-db/test-db';
 
 class LoginPageContainer extends React.Component {
     state = {
@@ -17,15 +18,27 @@ class LoginPageContainer extends React.Component {
     handlePasswordChange = (event) => this.setState({ password: event.target.value});
 
     handleLogin = () => {
-        const { user, history, logined } = this.props;
+        const { history, logged, addCategory, addTasks, addUser } = this.props;
         const { login, password } = this.state;
+        const testLogin = testDB.user.login.toLowerCase() === login.toLowerCase();
+        const testPassword = testDB.user.password === password;
 
-        if (login.toLowerCase() === user.login.toLowerCase() && password === user.password) {
+        if ( testLogin &&  testPassword) {
             fakeLogin.login((isLogin) => {
-                logined(isLogin);
+                addUser(testDB.user);
+                addCategory(testDB.category);
+                addTasks(testDB.tasks);
+
+                window.sessionStorage.setItem('category', JSON.stringify(testDB.category));
+                window.sessionStorage.setItem('tasks', JSON.stringify(testDB.tasks));
+
+                logged(isLogin);
                 history.push('/category');
-            });
+            }, testDB.user.login);
             this.setState({ login: '', password: '' });
+        } else {
+            console.log(testLogin);
+            console.log(testPassword);
         }
     };
 
@@ -48,12 +61,11 @@ class LoginPageContainer extends React.Component {
     }
 }
 
-export const LoginPage = connect(
-    store => ({
-        user: store.user,
-        services: store.services
-    }),
+export const LoginPage = connect(null,
     dispatch => ({
-        logined: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin})
+        logged: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin}),
+        addCategory: allCategory => dispatch({type: actionType.ADD_ALL_CATEGORY, payload: allCategory}),
+        addTasks: allTasks => dispatch({type: actionType.ADD_ALL_TASKS, payload: allTasks}),
+        addUser: user => dispatch({type: actionType.ADD_USER, payload: user})
     })
 )(withRouter(LoginPageContainer));

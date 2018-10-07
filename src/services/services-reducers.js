@@ -2,7 +2,6 @@ import { actionType } from '../actions/action-type';
 import { fakeLogin } from './services-action';
 
 const initialState = {
-    sidebarOpen: true,
     isLogin: false
 };
 

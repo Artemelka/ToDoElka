@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from "react-router-dom";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';

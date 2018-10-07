@@ -12,3 +12,5 @@ export const removeTask = (state, payload) => {
 };
 
 export const createNewTask = (state, payload) => ({...state, ...payload });
+
+export const addAllTask = (state, payload) => ({...payload});

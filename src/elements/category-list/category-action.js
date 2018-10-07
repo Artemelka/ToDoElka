@@ -54,3 +54,7 @@ export const editCategoryName = (state, payload) => {
         }
     };
 };
+
+export const addAllCategory = (state, payload) => {
+    return {...payload};
+};
