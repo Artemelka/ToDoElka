@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { TaskItemComponent } from './task-item';
-import {actionType} from "../../../actions/action-type";
+import {actionType} from "../../actions/action-type";
 
 class TaskItemContainerComponent extends Component {
     handleChangeStatusTask = (event) => {

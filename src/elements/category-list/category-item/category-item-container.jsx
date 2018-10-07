@@ -41,7 +41,7 @@ class CategoryItemContainerComponent extends Component {
     handleCreateCategory = () => {
         const {history, setActiveCategory, categoryId} = this.props;
 
-        history.push(`/category/new/${categoryId}`);
+        history.push(`/category/new/subcategory/${categoryId}`);
         setActiveCategory(categoryId);
     };
 

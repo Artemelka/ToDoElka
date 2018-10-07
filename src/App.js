@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Header } from './elements/header';
-import { Layout } from './elements/layout';
+import { Header, Layout } from './layouts';
 
 import './App.css';
 

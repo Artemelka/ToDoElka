@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 
+import { Input } from '../../elements/inputs';
 import './new-subcategory.css';
 
-const styles = (theme) => ({
-    formControl: {
-        margin: theme.spacing.unit,
-        marginBottom: 45,
-        width: '100%'
-    }
-});
-
-export class NewSubCategoryComponentView extends Component {
+export class NewSubCategoryComponent extends Component {
     render() {
         const {
-            subCategoryValue, onSubCategoryValueChange, buttonDisabled,
-            onCreateSubCategory, classes
+            subCategoryValue,
+            onSubCategoryValueChange,
+            buttonDisabled,
+            onCreateSubCategory
         } = this.props;
         const buttonText = 'create';
 
@@ -29,15 +22,9 @@ export class NewSubCategoryComponentView extends Component {
                         Create new subcategory
                     </h3>
                     <div className="New-subcategory__content">
-                        <TextField
+                        <Input
                             id="new-subcategory-name"
                             label="Subcategory name"
-                            className={classes.formControl}
-                            // placeholder="Placeholder"
-                            // helperText="Full width!"
-                            fullWidth
-                            margin="normal"
-                            InputLabelProps={{ shrink: true }}
                             value={subCategoryValue}
                             onChange={onSubCategoryValueChange}
                         />
@@ -57,5 +44,3 @@ export class NewSubCategoryComponentView extends Component {
         );
     }
 }
-
-export const NewSubCategoryComponent = withStyles(styles)(NewSubCategoryComponentView);

@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { NewSubCategoryComponent } from './new-subcategory';
-import { actionType } from '../../../actions/action-type';
+import { actionType } from '../../actions/action-type';
 
 class NewSubcategoryContainerComponent extends Component {
     state = {
         catName: ''
     };
 
-    handleSubCategoryValueChange = (event) => {
-        this.setState({catName: event.target.value})
-    };
+    handleSubCategoryValueChange = (event) => this.setState({catName: event.target.value});
 
     handleCreateSubCategory = () => {
         const { catName } = this.state;

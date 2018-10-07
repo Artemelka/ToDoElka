@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
-export class HomePage extends Component {
+import './home.css';
+
+class HomePageComponent extends Component {
     render() {
+        const { isLogin } = this.props;
+
         return (
-            <div>
-                <h2>Home</h2>
-                <div style={{marginTop: 80}}>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/category">CategoryPage</Link>
-                        </li>
-                    </ul>
+            <div className="Home-page">
+                <h2 className="Home-page__heading">Welcome in ToDoElka Application</h2>
+                <div className="Home-page__content">
+                    <p className="Home-page__text">
+                        {
+                            isLogin
+                                ? <span><Link to="/category">Your category</Link></span>
+                                : <span><Link to="/login">Login</Link> or <Link to="/Register">Register</Link></span>
+                        }
+                    </p>
                 </div>
             </div>
         );
     }
 }
+
+export const HomePage = connect(
+    store => ({
+        isLogin: store.services.isLogin
+    })
+)(HomePageComponent);

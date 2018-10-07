@@ -1,20 +1,45 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
-export class LoginPage extends React.Component {
+import Button from '@material-ui/core/Button';
+
+import { Input } from '../../elements/inputs';
+import './login-page.css';
+
+export class LoginPageComponent extends React.Component {
     render() {
+        const {
+            loginValue, passwordValue, onLoginChange, onPasswordChange, onLogin, buttonDisabled, buttonText
+        } = this.props;
+
         return (
             <div className="Login">
-                <h2>Login</h2>
-                <div style={{marginTop: 80}}>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/category">CategoryPage</Link>
-                        </li>
-                    </ul>
+                <p className="Login__text">
+                    Enter your login and password
+                </p>
+                <div className="Login__content">
+                    <Input
+                        id="login-name"
+                        label="Your login"
+                        value={loginValue}
+                        onChange={onLoginChange}
+                    />
+                    <Input
+                        id="password"
+                        label="Your password"
+                        value={passwordValue}
+                        onChange={onPasswordChange}
+                    />
+                    <div className="Login__button-wrapper">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            onClick={onLogin}
+                            disabled={buttonDisabled}
+                        >
+                            {buttonText}
+                        </Button>
+                    </div>
                 </div>
             </div>
         );

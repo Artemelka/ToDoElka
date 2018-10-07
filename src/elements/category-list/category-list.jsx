@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 import classNames from 'classnames';
 
 import { CategoryItemContainer } from './category-item'
@@ -38,4 +39,4 @@ export const CategoryList = connect(
     store => ({
         allCategory: store.allCategory
     })
-)(CategoryListComponent);
+)(withRouter(CategoryListComponent));

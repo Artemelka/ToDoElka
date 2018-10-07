@@ -5,6 +5,8 @@
     left: 0;
     padding: 5px 30px;
     background-color: #303f9f;
+    height: 58px;
+    box-sizing: border-box;
     color: aliceblue;
     font-size: 0;
     z-index: 2;
@@ -28,7 +30,7 @@
     color: aliceblue;
     font-weight: 500;
     font-size: 22px;
-    margin: 0;
+    margin: 10px 0;
 }
 .Todo-header__user {
     display: flex;

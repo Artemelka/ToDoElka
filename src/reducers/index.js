@@ -7,7 +7,10 @@ import { servicesReducer } from '../services/services-reducers';
 
 const initialState = {
     user: {
-        name: 'Artemelka'
+        login: 'Artemelka',
+        name: 'Artemelka',
+        password: '123456',
+        email: 'aemelianov85@gmail.com'
     }
 };
 

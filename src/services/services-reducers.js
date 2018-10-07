@@ -1,5 +1,5 @@
 import { actionType } from '../actions/action-type';
-import { login } from './services-action';
+import { fakeLogin } from './services-action';
 
 const initialState = {
     sidebarOpen: true,
@@ -9,7 +9,7 @@ const initialState = {
 export const servicesReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionType.LOGIN:
-            return login(state, action.payload);
+            return fakeLogin(state, action.payload);
         default:
             return state;
     }

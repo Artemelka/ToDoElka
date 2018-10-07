@@ -7,11 +7,12 @@ import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Switch from "@material-ui/core/Switch";
 import red from '@material-ui/core/colors/red';
 import { withStyles } from '@material-ui/core/styles';
 
-import { ButtonIcon as IconButton } from '../../buttons';
-import Switch from "@material-ui/core/Switch/Switch";
+import { ButtonIcon as IconButton } from '../../elements/buttons';
+
 
 const styles = () => ({
     avatar: {

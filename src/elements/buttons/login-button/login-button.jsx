@@ -11,11 +11,11 @@ class LoginButtonComponent extends Component {
     handleClick = () => {
         const { history, services, login } = this.props;
         const method = fakeLogin.isLogin ? 'logout' : 'login';
-        const url = services.isLogin ? '/login' : '/';
+        const url = services.isLogin ? '/login' : '/category';
 
         fakeLogin[method]((isLogin) => {
-            history.push(url);
             login(isLogin);
+            history.push(url);
         });
     };
 

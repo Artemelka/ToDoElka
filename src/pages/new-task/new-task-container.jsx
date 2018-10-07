@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { NewTaskComponent } from './new-task';
-import { actionType } from '../../../actions/action-type';
-import { getDateFromFormat } from '../../../utils';
-
+import { actionType } from '../../actions/action-type';
+import { getDateFromFormat } from '../../utils';
 
 class NewTaskContainer extends Component {
     state = {

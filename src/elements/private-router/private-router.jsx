@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Route, Redirect } from "react-router-dom";
-import { fakeLogin } from "../../services";
 
-export const PrivateRoute = ({component: Component, ...rest}) => {
-    const resultComponent = (props) => fakeLogin.isLogin
-        ? <Component {...props} />
-        : <Redirect  to={{pathname: "/login", state: {from: props.location}}} />;
+export const PrivateRoute = connect(store => ({services: store.services}))(
+    ({component: Component, services, ...rest}) => {
+        const login = services.isLogin;
+        const resultComponent = (props) => login
+            ? <Component {...props} />
+            : <Redirect  to={{pathname: "/login", state: {from: props.location}}} />;
 
-    return <Route {...rest} render={resultComponent} />
-};
+        return <Route {...rest} render={resultComponent} />
+    }
+);

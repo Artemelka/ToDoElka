@@ -1,0 +1,11 @@
+.Login {
+    padding: 15px 30px;
+    height: 100%;
+    max-width: 300px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    text-align: center;
+}
+.Login__content {
+    margin-top: 60px;
+}
