@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route } from "react-router-dom";
 import classNames from 'classnames';
 
-import { CategoryList } from '../../elements/category-list';
+import { CategoryList, NewSubcategory } from '../../elements/category-list';
 import { InputWithButton } from '../../elements/input-with-button';
 import { ProgressBar } from '../../elements/progress';
 import { TasksPage } from '../tasks-page';
@@ -40,7 +40,7 @@ class CategoryPageComponent extends Component {
                         <Route exact path="/category/" component={SelectCategory}/>
                         <Route exact path="/category/:catId" component={TasksPage}/>
                         <Route exact path="/category/:catId/task/:taskId" component={TaskItem}/>
-                        <Route exact path="/category/new/:catId" component={()=><h1>tasks</h1>} />
+                        <Route exact path="/category/new/:catId" component={NewSubcategory} />
                         <Route exact path="/category/new-task/" component={NewTask} />
                     </div>
                 </main>
