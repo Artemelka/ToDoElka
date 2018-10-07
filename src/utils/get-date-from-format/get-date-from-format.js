@@ -2,7 +2,7 @@ export const getDateFromFormat = () => {
     const date = new Date();
     const year = date.getFullYear();
     const monthInNumber = date.getMonth();
-    const day = date.getDay();
+    const day = date.getDate();
     let month = '';
 
     switch (monthInNumber) {
