@@ -3,28 +3,15 @@ import { routerReducer } from "react-router-redux";
 
 import { categoryReducer } from '../elements/category-list/category-reducer';
 import { taskReducer } from '../elements/task';
+import { servicesReducer } from '../services/services-reducers';
 
 const initialState = {
-    users: {
-        artemelka: {}
-    },
-    services: {
-        sidebarOpen: true,
-        isLogin: false
+    user: {
+        name: 'Artemelka'
     }
 };
 
-
-
-const servicesReducer = (state = initialState.services, action) => {
-    switch (action.type) {
-
-        default:
-            return state;
-    }
-};
-
-const usersReducer = (state = initialState.users, action) => {
+const usersReducer = (state = initialState.user, action) => {
   switch (action.type) {
 
     default:
@@ -36,6 +23,6 @@ export default combineReducers({
   router: routerReducer,
   allCategory: categoryReducer,
   allTasks: taskReducer,
-  users: usersReducer,
+  user: usersReducer,
   services: servicesReducer
 });

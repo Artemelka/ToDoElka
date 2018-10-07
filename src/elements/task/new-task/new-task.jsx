@@ -24,11 +24,14 @@ const styles = (theme) => ({
 });
 
 export class NewTaskComponentView extends Component {
+    static defaultProps = {
+        selectCategory: ''
+    };
+
     render() {
-        console.log('NewTask', this.props);
         const {
-            onCategoryChange, onCreateCategory, onTaskNameChange, onTaskDescriptionChange,
-            selectCategory, allCategory, buttonText, classes
+            onCategoryChange, onCreateTask, onTaskNameChange, onTaskDescriptionChange, selectCategory,
+            descriptionValue, nameValue, allCategory, buttonDisabled, buttonText, classes
         } = this.props;
 
         return (
@@ -44,6 +47,7 @@ export class NewTaskComponentView extends Component {
                         fullWidth
                         margin="normal"
                         InputLabelProps={{ shrink: true }}
+                        value={nameValue}
                         onChange={onTaskNameChange}
                     />
                     <FormControl className={classes.formControl}>
@@ -70,6 +74,7 @@ export class NewTaskComponentView extends Component {
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
+                        value={descriptionValue}
                         onChange={onTaskDescriptionChange}
                     />
                 </div>
@@ -77,8 +82,8 @@ export class NewTaskComponentView extends Component {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={onCreateCategory}
-                        disabled
+                        onClick={onCreateTask}
+                        disabled={buttonDisabled}
                     >
                         {buttonText}
                     </Button>

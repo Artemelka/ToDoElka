@@ -11,9 +11,4 @@ export const removeTask = (state, payload) => {
     return {...state};
 };
 
-export const createNewTask = (state, payload) => {
-    return {
-        ...state,
-        ...payload
-    };
-};
+export const createNewTask = (state, payload) => ({...state, ...payload });

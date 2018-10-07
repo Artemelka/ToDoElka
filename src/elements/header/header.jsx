@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 
-import { fakeLogin } from "../../auth";
 import { LoginButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';
 import './header.css';
@@ -12,8 +12,9 @@ class HeaderComponent extends Component {
     handleClick = () => this.props.history.push('/category/new-task/');
 
     render() {
-        const { isLogin } = fakeLogin;
+        const { user, isLogin } = this.props;
         const buttonText = 'Create new task';
+        const headerText = isLogin ? `Hello ${user.name}` : 'ToDoElka';
 
         return (
             <header className="Todo-header">
@@ -30,7 +31,7 @@ class HeaderComponent extends Component {
                 </div>
                 <div className="Todo-header__column Todo-header__column--3 Todo-header__column--center">
                     <h2 className="Todo-header__heading">
-                        {isLogin ? 'Hello User' : 'ToDoElka'}
+                        {headerText}
                     </h2>
                 </div>
                 <div className="Todo-header__column Todo-header__column--3 Todo-header__column--right">
@@ -48,4 +49,11 @@ class HeaderComponent extends Component {
     }
 }
 
-export const Header = withRouter(HeaderComponent);
+export const Header = connect(
+    store => ({
+        user: store.user,
+        isLogin: store.services.isLogin
+    })
+)(withRouter(HeaderComponent));
+
+// export const Header = withRouter(HeaderComponent);

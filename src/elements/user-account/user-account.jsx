@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { fakeLogin } from '../../auth';
+import { fakeLogin } from '../../services';
+import {actionType} from "../../actions/action-type";
 
 const anchorOrigin = {
     vertical: 'top',
@@ -26,7 +28,10 @@ class UserAccountComponent extends Component {
 
     handleClose = () => this.setState({ anchorEl: null });
 
-    handleLogout = () => fakeLogin.logout(() => this.props.history.push('/login'));
+    handleLogout = () => fakeLogin.logout((isLogin) => {
+        this.props.history.push('/login');
+        this.props.logout(isLogin);
+    });
 
     render() {
         const { anchorEl } = this.state;
@@ -59,4 +64,8 @@ class UserAccountComponent extends Component {
     }
 }
 
-export const UserAccount = withRouter(UserAccountComponent);
+export const UserAccount = connect(null,
+    dispatch => ({
+        logout: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin})
+    })
+)(withRouter(UserAccountComponent));

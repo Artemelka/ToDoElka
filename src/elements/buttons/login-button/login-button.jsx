@@ -1,20 +1,27 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 
-import { fakeLogin } from '../../../auth';
+import { fakeLogin } from '../../../services';
+import { actionType } from "../../../actions/action-type";
 
 class LoginButtonComponent extends Component {
     handleClick = () => {
-        const { history } = this.props;
+        const { history, services, login } = this.props;
         const method = fakeLogin.isLogin ? 'logout' : 'login';
-        const url = fakeLogin.isLogin ? '/login' : '/';
+        const url = services.isLogin ? '/login' : '/';
 
-        fakeLogin[method](() => history.push(url));
+        fakeLogin[method]((isLogin) => {
+            history.push(url);
+            login(isLogin);
+        });
     };
 
     render() {
-        const buttonText = fakeLogin.isLogin ? 'Sign out' : 'Login';
+        const { services } = this.props;
+        const buttonText = services.isLogin ? 'Sign out' : 'Login';
 
         return <Button
             variant="contained"
@@ -26,4 +33,11 @@ class LoginButtonComponent extends Component {
     }
 }
 
-export const LoginButton = withRouter(LoginButtonComponent);
+export const LoginButton = connect(
+    store => ({
+        services: store.services
+    }),
+    dispatch => ({
+        login: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin})
+    })
+)(withRouter(LoginButtonComponent));

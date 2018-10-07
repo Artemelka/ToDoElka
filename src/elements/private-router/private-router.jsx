@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { fakeLogin } from "../../auth";
+import { fakeLogin } from "../../services";
 
 export const PrivateRoute = ({component: Component, ...rest}) => {
     const resultComponent = (props) => fakeLogin.isLogin

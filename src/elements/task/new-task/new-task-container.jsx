@@ -2,35 +2,75 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { NewTaskComponent } from './new-task';
+import { actionType } from '../../../actions/action-type';
+import { getDateFromFormat } from '../../../utils';
+
 
 class NewTaskContainer extends Component {
-    state = { name: 'hai' };
-
-    handleCategoryChange = (event) => {
-        this.setState({ name: event.target.value });
+    state = {
+        categoryName: '',
+        taskName: '',
+        description: ''
     };
-    handleTaskNameChange = () => {};
 
-    handleTaskDescriptionChange = () => {};
+    handleCategoryChange = (event) => this.setState({ categoryName: event.target.value });
 
-    handleCreateCategory = () => {};
+    handleTaskNameChange = (event) => this.setState({ taskName: event.target.value });
+
+    handleTaskDescriptionChange = (event) => this.setState({description: event.target.value});
+
+    handleCreateTask = () => {
+        const {categoryName, taskName, description} = this.state;
+        const {allTasks, user, createNewTask} = this.props;
+        const numCount = Object.values(allTasks).length;
+        const newId = `${taskName.replace(' ', '')}${numCount}`;
+        const newTask = {
+            [newId]: {
+                id: newId,
+                type: "task",
+                parent: categoryName,
+                name: taskName,
+                description: description,
+                time: getDateFromFormat(),
+                author: user.name,
+                checked: false
+            }
+        };
+
+        createNewTask(newTask);
+        this.setState({taskName: '', description: '', categoryName: ''});
+    };
 
     render() {
+        const {categoryName, taskName, description} = this.state;
         const {allCategory} = this.props;
         const buttonText = "create task";
+        const buttonDisabled = !Boolean(categoryName && taskName && description);
 
         return (
             <NewTaskComponent
                 onCategoryChange={this.handleCategoryChange}
-                onCreateCategory={this.handleCreateCategory}
+                onCreateTask={this.handleCreateTask}
                 onTaskNameChange={this.handleTaskNameChange}
                 onTaskDescriptionChange={this.handleTaskDescriptionChange}
-                selectCategory={this.state.name}
+                selectCategory={categoryName}
+                nameValue={taskName}
+                descriptionValue={description}
                 allCategory={allCategory}
+                buttonDisabled={buttonDisabled}
                 buttonText={buttonText}
             />
         );
     }
 }
 
-export const NewTask = connect(store => ({allCategory: store.allCategory}))(NewTaskContainer);
+export const NewTask = connect(
+    store => ({
+        allCategory: store.allCategory,
+        allTasks: store.allTasks,
+        user: store.user
+    }),
+    dispatch => ({
+        createNewTask: task => dispatch({type: actionType.CREATE_TASK, payload: task})
+    })
+)(NewTaskContainer);
