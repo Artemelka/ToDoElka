@@ -3,11 +3,23 @@ import { connect } from 'react-redux';
 
 import { NewTaskButton } from '../../elements/buttons';
 import { UserAccount } from '../../elements/user-account';
+import {fakeLogin, getStoreItems} from '../../services';
 import './header.css';
+import {actionType} from "../../actions/action-type";
 
 class HeaderComponent extends Component {
+    componentDidMount() {
+        const { addUser } = this.props;
+        const isAuth = fakeLogin.isAuth();
+
+        if (isAuth) {
+            addUser(getStoreItems('user'));
+        }
+    }
+
     render() {
-        const { user, isLogin } = this.props;
+        const { user } = this.props;
+        const isLogin = fakeLogin.isAuth();
         const headerText = isLogin ? `Hello ${user.name}` : 'ToDoElka';
 
         return (
@@ -32,7 +44,9 @@ class HeaderComponent extends Component {
 
 export const Header = connect(
     store => ({
-        user: store.user,
-        isLogin: store.services.isLogin
+        user: store.user
+    }),
+    dispatch => ({
+        addUser: user => dispatch({type: actionType.ADD_USER, payload: user})
     })
 )(HeaderComponent);

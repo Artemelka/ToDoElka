@@ -18,23 +18,18 @@ class LoginPageContainer extends React.Component {
     handlePasswordChange = (event) => this.setState({ password: event.target.value});
 
     handleLogin = () => {
-        const { history, logged, addCategory, addTasks, addUser } = this.props;
+        const { history, logged, addUser } = this.props;
         const { login, password } = this.state;
         const testLogin = testDB.user.login.toLowerCase() === login.toLowerCase();
         const testPassword = testDB.user.password === password;
 
         if ( testLogin &&  testPassword) {
             fakeLogin.login((isLogin) => {
-                addUser(testDB.user);
-                addCategory(testDB.category);
-                addTasks(testDB.tasks);
-
-                window.sessionStorage.setItem('category', JSON.stringify(testDB.category));
-                window.sessionStorage.setItem('tasks', JSON.stringify(testDB.tasks));
-
+                addUser(testDB.user.login);
+                window.sessionStorage.setItem('user', JSON.stringify(testDB.user.login));
                 logged(isLogin);
                 history.push('/category');
-            }, testDB.user.login);
+            });
             this.setState({ login: '', password: '' });
         } else {
             console.log(testLogin);
@@ -64,8 +59,6 @@ class LoginPageContainer extends React.Component {
 export const LoginPage = connect(null,
     dispatch => ({
         logged: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin}),
-        addCategory: allCategory => dispatch({type: actionType.ADD_ALL_CATEGORY, payload: allCategory}),
-        addTasks: allTasks => dispatch({type: actionType.ADD_ALL_TASKS, payload: allTasks}),
         addUser: user => dispatch({type: actionType.ADD_USER, payload: user})
     })
 )(withRouter(LoginPageContainer));
