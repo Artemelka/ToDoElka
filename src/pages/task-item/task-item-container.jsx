@@ -3,25 +3,12 @@ import { connect } from 'react-redux';
 
 import { TaskItemComponent } from './task-item';
 import {actionType} from "../../actions/action-type";
-import { fakeLogin, getStoreItems } from '../../services';
 
 class TaskItemContainerComponent extends Component {
-    state = {
-        allTasks: this.props.allTasks
+    static defaultProps = {
+        allTasks: {},
+        allCategory: {}
     };
-
-    componentWillMount() {
-        const { addTasks } = this.props;
-        const { allTasks } = this.state;
-        const isAuth = fakeLogin.isAuth();
-
-        if (isAuth && Boolean(allTasks)) {
-            const tasks = getStoreItems('tasks');
-
-            addTasks(tasks);
-            this.setState({ allTasks: tasks });
-        }
-    }
 
     handleChangeStatusTask = (event) => {
         const { changeStatus, match } = this.props;
@@ -36,12 +23,29 @@ class TaskItemContainerComponent extends Component {
         history.push(`/category/${match.params.catId}`);
     };
 
-    render() {
-        const { match } = this.props;
-        const { allTasks } = this.state;
+    handleCategoryClick = () => {
+        const { history, match } = this.props;
 
-        const activeTask = allTasks[match.params.taskId];
+        history.push(`/category/${match.params.catId}`);
+    };
+
+    render() {
+        const { match, allTasks, allCategory } = this.props;
+        const emptyTask = {
+            id: 'emptyTask',
+            name: 'empty task',
+            time: 'unknown',
+            description: 'failed load task from server',
+            author: 'unknown',
+            checked: false
+        };
+        const emptyCategory = {
+            name: 'empty category'
+        };
+        const activeTask = allTasks[match.params.taskId] || emptyTask;
+        const categoryParent = allCategory[match.params.catId] || emptyCategory;
         const userAvatar = activeTask.author.slice(0,1);
+        const categoryName = categoryParent.name || '';
 
         return (
             <TaskItemComponent
@@ -51,6 +55,8 @@ class TaskItemContainerComponent extends Component {
                 taskAuthor={activeTask.author}
                 status={activeTask.checked}
                 taskId={activeTask.id}
+                categoryName={categoryName}
+                onCategoryClick={this.handleCategoryClick}
                 userAvatar={userAvatar}
                 onRemoveTask={this.handleRemoveTask}
                 onChangeStatusTask={this.handleChangeStatusTask}
@@ -60,10 +66,12 @@ class TaskItemContainerComponent extends Component {
 }
 
 export const TaskItem = connect(
-    store => ({allTasks: store.allTasks, store: store}),
+    store => ({
+        allTasks: store.allTasks,
+        allCategory: store.allCategory
+    }),
     dispatch => ({
         changeStatus: taskId => dispatch({type: actionType.CHANGE_STATUS_TASK, payload: taskId}),
-        removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId}),
-        addTasks: allTasks => dispatch({type: actionType.ADD_ALL_TASKS, payload: allTasks}),
+        removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId})
     })
 )(TaskItemContainerComponent);

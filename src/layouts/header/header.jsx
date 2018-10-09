@@ -18,8 +18,8 @@ class HeaderComponent extends Component {
     }
 
     render() {
-        const { user } = this.props;
-        const isLogin = fakeLogin.isAuth();
+        const { user, isLoginStore } = this.props;
+        const isLogin = fakeLogin.isAuth() || isLoginStore;
         const headerText = isLogin ? `Hello ${user.name}` : 'ToDoElka';
 
         return (
@@ -44,7 +44,8 @@ class HeaderComponent extends Component {
 
 export const Header = connect(
     store => ({
-        user: store.user
+        user: store.user,
+        isLoginStore: store.services.isLogin
     }),
     dispatch => ({
         addUser: user => dispatch({type: actionType.ADD_USER, payload: user})
