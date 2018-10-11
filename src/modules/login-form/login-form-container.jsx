@@ -25,10 +25,16 @@ class LoginFormContainer extends Component {
     };
 
     authFalse = (errors) => {
-        const { loader } = this.props;
+        const { loader, addNotification } = this.props;
+        const notificationOptions = {
+            message: errors,
+            variant: 'error',
+            open: true
+        };
 
         console.log('auth error', errors);
         loader(false);
+        addNotification(notificationOptions);
     };
 
     handleLogin = () => {
@@ -69,6 +75,7 @@ export const LoginForm = connect(null,
     dispatch => ({
         logged: isLogin => dispatch({type: actionType.LOGIN, payload: isLogin}),
         addUser: user => dispatch({type: actionType.ADD_USER, payload: user}),
-        loader: state => dispatch({type: actionType.ACTION_LOADER, payload: state})
+        loader: state => dispatch({type: actionType.ACTION_LOADER, payload: state}),
+        addNotification: params => dispatch({type: actionType.ADD_NOTIFICATION, payload: params})
     })
 )(withRouter(LoginFormContainer));
