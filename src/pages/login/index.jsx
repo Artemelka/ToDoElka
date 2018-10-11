@@ -1,1 +1,1 @@
-export { LoginPage } from './login-page-container';
+export { LoginPage } from './login-page';

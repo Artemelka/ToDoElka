@@ -3,17 +3,16 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = (theme) => ({
+const styles = () => ({
     formControl: {
-        margin: theme.spacing.unit,
-        marginBottom: 45,
-        width: '100%'
+        width: '100%',
+        margin: 0
     }
 });
 
 class InputComponent extends Component {
     render() {
-        const {classes, value, onChange, id, label, placeholder, helperText, multiline, variant} = this.props;
+        const {classes, value, onChange, id, label, placeholder, helperText, multiline, variant, inputRef} = this.props;
 
         return (
             <TextField
@@ -30,6 +29,7 @@ class InputComponent extends Component {
                 inputProps={{style: {height: 20}}}
                 value={value}
                 onChange={onChange}
+                inputRef={inputRef}
             />
         );
     }

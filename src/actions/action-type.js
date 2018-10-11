@@ -9,5 +9,6 @@ export const actionType = {
     EDIT_CATEGORY: 'EDIT_CATEGORY',
     ADD_ALL_CATEGORY: 'ADD_ALL_CATEGORY',
     LOGIN: "LOGIN",
-    ADD_USER: 'ADD_USER'
+    ADD_USER: 'ADD_USER',
+    ACTION_LOADER: "ACTION_LOADER"
 };
