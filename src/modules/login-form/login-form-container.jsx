@@ -28,13 +28,28 @@ class LoginFormContainer extends Component {
         const { loader, addNotification } = this.props;
         const notificationOptions = {
             message: errors,
-            variant: 'error',
-            open: true
+            variant: 'error'
         };
 
-        console.log('auth error', errors);
         loader(false);
         addNotification(notificationOptions);
+
+        // ToDo: remove next-line after tests
+        console.log('auth error', errors);
+        const notificationOptions2 = {
+            message: 'second error',
+            variant: 'error',
+            open: true,
+            delay: 3000
+        };
+        const notificationOptions3 = {
+            message: 'last error',
+            variant: 'error',
+            open: true,
+            delay: 4000
+        };
+        addNotification(notificationOptions2);
+        setTimeout(() => addNotification(notificationOptions3), 2000);
     };
 
     handleLogin = () => {

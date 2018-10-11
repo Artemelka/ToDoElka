@@ -1,1 +1,1 @@
-export { Notification } from './notification-container';
+export { Notification } from './notification-HOC';
