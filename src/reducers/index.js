@@ -5,6 +5,7 @@ import { categoryReducer } from '../elements/category-list/category-reducer';
 import { taskReducer } from '../elements/task';
 import { servicesReducer } from '../services/services-reducers';
 import { notificationReducer } from '../elements/notification/notification-reducer';
+import { modalReducer } from '../elements/modal';
 import { actionType } from '../actions/action-type';
 
 const initialState = {};
@@ -28,5 +29,6 @@ export default combineReducers({
     allTasks: taskReducer,
     user: usersReducer,
     services: servicesReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    modals: modalReducer
 });

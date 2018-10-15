@@ -17,10 +17,33 @@ class TaskItemContainerComponent extends Component {
     };
 
     handleRemoveTask = () => {
-        const { removeTask, match, history } = this.props;
+        const { removeTask, allTasks, match, history, closeModal, showModal } = this.props;
+        const activeTask = allTasks[match.params.taskId];
+        const modalParams = {
+            content: {
+                title: 'Delete task ?',
+                text: `Do you really want to delete ${activeTask.name}`
+            },
+            actions: [
+                {
+                    text: 'Cancel',
+                    action: () => closeModal()
+                },
+                {
+                    text: 'Confirm',
+                    action: () => {
+                        removeTask(match.params.taskId);
+                        history.push(`/category/${match.params.catId}`);
+                        closeModal();
+                    }
+                }
+            ],
+            params: {
+                overlayClose: false
+            }
+        };
 
-        removeTask(match.params.taskId);
-        history.push(`/category/${match.params.catId}`);
+        showModal(modalParams);
     };
 
     handleCategoryClick = () => {
@@ -72,6 +95,8 @@ export const TaskItem = connect(
     }),
     dispatch => ({
         changeStatus: taskId => dispatch({type: actionType.CHANGE_STATUS_TASK, payload: taskId}),
-        removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId})
+        removeTask: taskId => dispatch({type: actionType.REMOVE_TASK, payload: taskId}),
+        closeModal: () => dispatch({type: actionType.REMOVE_MODAL}),
+        showModal: modal => dispatch({type: actionType.ADD_MODAL, payload: modal})
     })
 )(TaskItemContainerComponent);

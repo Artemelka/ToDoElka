@@ -71,10 +71,39 @@ class CategoryItemContainerComponent extends Component {
     };
 
     handleRemoveCategory = () =>  {
-        const {removeCategory, history, categoryId} = this.props;
+        const {
+            removeCategory,
+            history,
+            categoryId,
+            categoryName,
+            closeModal,
+            showModal
+        } = this.props;
+        const modalParams = {
+            content: {
+                title: 'Delete category ?',
+                text: `Do you really want to delete ${categoryName}`
+            },
+            actions: [
+                {
+                    text: 'Cancel',
+                    action: () => closeModal()
+                },
+                {
+                    text: 'Confirm',
+                    action: () => {
+                        removeCategory(categoryId);
+                        history.push(`/category`);
+                        closeModal();
+                    }
+                }
+            ],
+            params: {
+                overlayClose: false
+            }
+        };
 
-        removeCategory(categoryId);
-        history.push(`/category`);
+        showModal(modalParams);
     };
 
     handleRef = (ref) => {
@@ -134,6 +163,8 @@ export const CategoryItemContainer = connect(null,
         removeCategory: catId => dispatch({type: actionType.REMOVE_CATEGORY, payload: catId}),
         setActiveCategory: catId => dispatch({type: actionType.ACTIVE_CATEGORY, payload: catId}),
         editCategoryName: catId => dispatch({type: actionType.EDIT_CATEGORY, payload: catId}),
-        addNotification: params => dispatch({type: actionType.ADD_NOTIFICATION, payload: params})
+        addNotification: params => dispatch({type: actionType.ADD_NOTIFICATION, payload: params}),
+        closeModal: () => dispatch({type: actionType.REMOVE_MODAL}),
+        showModal: modal => dispatch({type: actionType.ADD_MODAL, payload: modal})
     })
 )(CategoryItemContainerComponent);

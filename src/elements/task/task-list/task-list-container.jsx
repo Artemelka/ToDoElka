@@ -25,9 +25,31 @@ class TaskListComponentContainer extends Component {
     };
 
     handleRemoveTask = () => {
-        const { removeTask, task } = this.props;
+        const { removeTask, task, showModal, closeModal } = this.props;
+        const modalParams = {
+            content: {
+                title: 'Delete task ?',
+                text: `Do you really want to delete ${task.name}`
+            },
+            actions: [
+                {
+                    text: 'Cancel',
+                    action: () => closeModal()
+                },
+                {
+                    text: 'Confirm',
+                    action: () => {
+                        removeTask(task.id);
+                        closeModal();
+                    }
+                }
+            ],
+            params: {
+                overlayClose: false
+            }
+        };
 
-        removeTask(task.id);
+        showModal(modalParams);
     };
 
     render() {
