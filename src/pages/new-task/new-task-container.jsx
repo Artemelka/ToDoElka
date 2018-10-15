@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { NewTaskComponent } from './new-task';
 import { actionType } from '../../actions/action-type';
 import { getDateFromFormat } from '../../utils';
+import {notificationType} from "../../elements/notification";
 
 class NewTaskContainer extends Component {
     state = {
@@ -20,7 +21,7 @@ class NewTaskContainer extends Component {
 
     handleCreateTask = () => {
         const {categoryName, taskName, description} = this.state;
-        const {allTasks, user, createNewTask} = this.props;
+        const {allTasks, user, createNewTask, addNotification} = this.props;
         const numCount = Object.values(allTasks).length;
         const newId = `${taskName.replace(' ', '')}${numCount}`;
         const newTask = {
@@ -35,9 +36,14 @@ class NewTaskContainer extends Component {
                 checked: false
             }
         };
+        const notificationOptions = {
+            message: 'New task created',
+            variant: notificationType.INFO
+        };
 
         createNewTask(newTask);
         this.setState({taskName: '', description: '', categoryName: ''});
+        addNotification(notificationOptions);
     };
 
     render() {
@@ -70,6 +76,7 @@ export const NewTask = connect(
         user: store.user
     }),
     dispatch => ({
-        createNewTask: task => dispatch({type: actionType.CREATE_TASK, payload: task})
+        createNewTask: task => dispatch({type: actionType.CREATE_TASK, payload: task}),
+        addNotification: params => dispatch({type: actionType.ADD_NOTIFICATION, payload: params})
     })
 )(NewTaskContainer);

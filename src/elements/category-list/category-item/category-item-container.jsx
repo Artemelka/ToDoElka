@@ -6,6 +6,7 @@ import { CategoryItem } from './category-item';
 import { CategoryList } from '../index';
 import { actionType } from '../../../actions/action-type';
 import './category-item.css';
+import {notificationType} from "../../notification";
 
 class CategoryItemContainerComponent extends Component {
     state = {
@@ -25,10 +26,15 @@ class CategoryItemContainerComponent extends Component {
     };
 
     handleConfirm = () => {
-        const {editCategoryName, categoryId} = this.props;
+        const {editCategoryName, addNotification, categoryId} = this.props;
+        const notificationOptions = {
+            message: 'category name changed',
+            variant: notificationType.INFO
+        };
 
         editCategoryName({id: categoryId, name: this.inputRef.value});
         this.setState({editCategory: false});
+        addNotification(notificationOptions);
     };
 
     handleClick = (event) => {
@@ -127,6 +133,7 @@ export const CategoryItemContainer = connect(null,
     dispatch => ({
         removeCategory: catId => dispatch({type: actionType.REMOVE_CATEGORY, payload: catId}),
         setActiveCategory: catId => dispatch({type: actionType.ACTIVE_CATEGORY, payload: catId}),
-        editCategoryName: catId => dispatch({type: actionType.EDIT_CATEGORY, payload: catId})
+        editCategoryName: catId => dispatch({type: actionType.EDIT_CATEGORY, payload: catId}),
+        addNotification: params => dispatch({type: actionType.ADD_NOTIFICATION, payload: params})
     })
 )(CategoryItemContainerComponent);

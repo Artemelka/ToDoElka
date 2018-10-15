@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { LoginFormComponent } from './login-form';
 import { authRequest } from '../../services';
 import {actionType} from "../../actions/action-type";
+import { notificationType } from '../../elements/notification';
 
 class LoginFormContainer extends Component {
     state = {
@@ -28,28 +29,11 @@ class LoginFormContainer extends Component {
         const { loader, addNotification } = this.props;
         const notificationOptions = {
             message: errors,
-            variant: 'error'
+            variant: notificationType.ERROR
         };
 
         loader(false);
         addNotification(notificationOptions);
-
-        // ToDo: remove next-line after tests
-        console.log('auth error', errors);
-        const notificationOptions2 = {
-            message: 'second error',
-            variant: 'error',
-            open: true,
-            delay: 3000
-        };
-        const notificationOptions3 = {
-            message: 'last error',
-            variant: 'error',
-            open: true,
-            delay: 4000
-        };
-        addNotification(notificationOptions2);
-        setTimeout(() => addNotification(notificationOptions3), 2000);
     };
 
     handleLogin = () => {
